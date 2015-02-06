@@ -19,11 +19,10 @@ import org.openxava.annotations.*;
 		"carModelVariance;"
 		+ " carModel;"
 		+ "Customer Volumes{volume;}"
-		+ "parts {part;}"
-		+ "parts {part;}"
-		+ "Customer Volumes{volume;}")
+		+ "parts {part;}")
+		//+ "Customer Volumes{volume;}")
 
-@Tab(properties="carModelVariance, carModel.carModel, carModel.customer.name")
+@Tab(properties="carModelVariance, carModel.carModel")
 
 public class CarModelVariance extends Identifiable {
 
@@ -39,7 +38,7 @@ public class CarModelVariance extends Identifiable {
 //***************************************** Link to Car Model ********************************** 
 	
 	@ManyToOne (fetch=FetchType.LAZY)
-	@DescriptionsList(descriptionProperties="carModel, customer.name")
+	@DescriptionsList(descriptionProperties="carModel")
 	@Required
 	private CarModel carModel;
 	
@@ -52,7 +51,7 @@ public class CarModelVariance extends Identifiable {
 	
 //********************************  link to Car model volumes  *********************************
 	   
-    @ListProperties("customerForecast.monthYear.monthYear, estimatedQuantity")
+    @ListProperties("customerForecast.customer.name, customerForecast.monthYear.monthYear, estimatedQuantity")
 	@OneToMany( // To declare this as a persistent collection
 			mappedBy="carModelVariance", // The member of Detail that stores the relationship
 			cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities

@@ -39,12 +39,16 @@ import org.openxava.annotations.*;
 	" cutSizeWidth;" +
 	" cutSizePitch;" +
 	" cutSizeLength;" +
+	" cutSize;" +	
 	"stripLength;" +
 	" partPerStrip;" +
 	" blankWeight;" +
 	"}" + 
+	//"Car Models {" +
+	//" carModelVariance;" +
+	//"}" + 
 	"Car Models {" +
-	" carModelVariance;" +
+	" allCarModel;" +
 	"}" + 
 	"Purchasing Information {" +
 	" purchaseType;" +
@@ -63,7 +67,7 @@ import org.openxava.annotations.*;
 	" child;" +
 	"}" )
 
-@Tab( properties="name, number, backNumber, category.name,uom.uom, purchaseType.type, photo")
+@Tab( properties="name, number, backNumber, category.name, uom.uom, purchaseType.type, photo")
 
 public class Part extends Identifiable{	
 	
@@ -193,6 +197,22 @@ public class Part extends Identifiable{
 			result = (cutSizeThickness * cutSizeWidth * cutSizeLength) * 0.00000785;		
 		} else if (materialType != null && materialType.getType().toLowerCase().equals("strip")){
 			result = (cutSizeThickness * cutSizeWidth * stripLength) * 0.00000785 / partPerStrip;
+		}
+		return result;			
+	}
+	
+//*********************************** Cut size ***********************************
+
+	@Depends("cutSizeThickness, cutSizeWidth, cutSizePitch, cutSizeLength, stripLength")
+	@Transient
+	public String getCutSize(){
+		String result = null;
+		if (materialType != null && materialType.getType().toLowerCase().equals("coil")){
+			result = Double.toString(cutSizeThickness) + " X " + Double.toString(cutSizeWidth) + " X Coil";	
+		} else if (materialType != null && materialType.getType().toLowerCase().equals("pre-cut")){
+			result = Double.toString(cutSizeThickness) + " X " + Double.toString(cutSizeWidth) + " X " + Double.toString(cutSizeLength);			
+		} else if (materialType != null && materialType.getType().toLowerCase().equals("strip")){
+			result = Double.toString(cutSizeThickness) + " X " + Double.toString(cutSizeWidth) + " X " + Double.toString(stripLength);
 		}
 		return result;			
 	}
@@ -337,6 +357,18 @@ public class Part extends Identifiable{
 	public void setCarModelVariance(Collection<PartCarModelVariance> carModelVariance) {
 	 this.carModelVariance = carModelVariance;
 	}
+	
+//*********************************** All Car model ***********************************
+
+/*	@Depends("carModelVariance")
+	@Transient
+	public String getAllCarModel(){
+		String result = "need to be codded";
+		if (carModelVariance.size() !=0){
+			result = carModelVariance.iterator().next().getCarModelVariance().getCarModel().getCarModel();
+		}
+		return result;
+	}*/
 	
 //**********************************  link to Quotation Detail **********************************
 	  

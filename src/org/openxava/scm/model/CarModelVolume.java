@@ -31,7 +31,7 @@ public class CarModelVolume extends Identifiable{
 //********************************* link to car model variance ****************	
 		
 	@ManyToOne (fetch=FetchType.LAZY)
-	@DescriptionsList(descriptionProperties="carModel.customer.name, carModel.carModel, carModelVariance")
+	//@DescriptionsList(descriptionProperties="carModel.customer.name, carModel.carModel, carModelVariance")
 	private CarModelVariance carModelVariance;
 	
 	public CarModelVariance getCarModelVariance() {

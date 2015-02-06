@@ -10,8 +10,9 @@ import org.openxava.annotations.*;
 @Table(name="aes_customers")
 @View(members= 
 "name, shortName;" + 
-"remarks;" +
-"Customer Car Models{carModel};"
+"remarks;"
++ "Car Models{carModel};"
++ "Forecasts{customerForecast};"
 + "Address{address};"
 + "Contacts{contact};"
 )
@@ -45,7 +46,7 @@ public class Customer extends Identifiable {
 	
 //************************** link to address ***********************************
 	
-	@ListProperties("addressType.type, state, city, zipCode, street")
+	@ListProperties("addressType.type, state, city, zipCode, street1, street2")
 	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)	
 	private Collection<Address> address = new ArrayList<Address>();
 	
@@ -56,11 +57,11 @@ public class Customer extends Identifiable {
     	this.address=address;
     } 
     
-//************************** link to address ***********************************
+//************************** link to Contact ***********************************
 	
   	@ListProperties("name, position, mobileNumber, phoneNumber, faxNumber, email, canCall, canEmail")
   	@OneToMany(mappedBy="customer", cascade=CascadeType.ALL)	
-  	private Collection<Contact> contact = new ArrayList<Contact>();
+  	private Collection<Contact> contact; //= new ArrayList<Contact>();
   	
       public Collection<Contact> getContact() {
       	return contact;
@@ -69,7 +70,7 @@ public class Customer extends Identifiable {
       	this.contact=contact;
       } 
     
-// ***************************************** Memo *************************************
+// ***************************************** remark *************************************
 	
 
 	@Stereotype("MEMO")
@@ -82,20 +83,34 @@ public class Customer extends Identifiable {
 	this.remarks = remarks;	
 	}
 	
-//**********************************************  link to Car model  *************************************
+//**********************************************  link to Customer Car model  *************************************
    
-	@ListProperties("carModel")
+	@ListProperties("carModel.carModel, secondTier")
 	@OneToMany( // To declare this as a persistent collection
 			mappedBy="customer", // The member of Detail that stores the relationship
 			cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities
-	private Collection<CarModel> carModel = new ArrayList<CarModel>();
+	private Collection<CustomerCarModel> carModel = new ArrayList<CustomerCarModel>();
 	
-	public Collection<CarModel> getCarModel() {
+	public Collection<CustomerCarModel> getCarModel() {
 	 return carModel;
 	}
-	public void setCarModel(Collection<CarModel> carModel) {
+	public void setCarModel(Collection<CustomerCarModel> carModel) {
 	 this.carModel = carModel;
 	}
-	   
+	
+//**********************************************  link to Customer Forecast  *************************************
+   
+	@ListProperties("monthYear.monthYear, workingDay")
+	@OneToMany( // To declare this as a persistent collection
+			mappedBy="customer", // The member of Detail that stores the relationship
+			cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities
+	private Collection<CustomerForecast> customerForecast = new ArrayList<CustomerForecast>();
+	
+	public Collection<CustomerForecast> getCustomerForecast() {
+	 return customerForecast;
+	}
+	public void setCustomerForecast(Collection<CustomerForecast> customerForecast) {
+	 this.customerForecast = customerForecast;
+	}
 
 }

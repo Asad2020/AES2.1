@@ -21,13 +21,13 @@ public class CustomerForecast extends Identifiable{
 //***********************************************  link to the customer  *******************
 	
 	@ManyToOne (fetch=FetchType.LAZY, optional=false)
-	@DescriptionsList(descriptionProperties="name")
-	private Supplier customer;			
+	@DescriptionsList(descriptionProperties="name, shortName")
+	private Customer customer;			
 	
-	public Supplier getCustomer() {
+	public Customer getCustomer() {
 	     return customer;
 	}
-	public void setCustomer(Supplier customer) {
+	public void setCustomer(Customer customer) {
 	     this.customer = customer;
 	}
 		

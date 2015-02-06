@@ -17,7 +17,8 @@ import org.openxava.annotations.*;
 @Table(name="aes_carmodels")
 
 //@View(members="")
-@Tab(properties="carModel, customer.name, customer.shortName")
+@Tab(properties="carModel")
+
 public class CarModel extends Identifiable{
 
 	private String carModel;
@@ -28,17 +29,19 @@ public class CarModel extends Identifiable{
 		this.carModel= carModel;
 	}
 
-//******************************* Link to Organization (Customer) ************************** 
+//**********************************************  link to Customer Car model  *************************************
+   
+	@ListProperties("customer.name, secondTier")
+	@OneToMany( // To declare this as a persistent collection
+			mappedBy="carModel", // The member of Detail that stores the relationship
+			cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities
+	private Collection<CustomerCarModel> customer = new ArrayList<CustomerCarModel>();
 	
-	@ManyToOne (fetch=FetchType.LAZY)
-	@DescriptionsList(descriptionProperties="name, shortName")
-	@Required
-	private Customer customer;
-	public Customer getCustomer() {
-	     return customer;
+	public Collection<CustomerCarModel> getCustomer() {
+	 return customer;
 	}
-	public void setCustomer(Customer customer) {
-	     this.customer = customer;
+	public void setCustomer(Collection<CustomerCarModel> customer) {
+	 this.customer = customer;
 	}
 
 //*********************************link to Car model variance *******************************

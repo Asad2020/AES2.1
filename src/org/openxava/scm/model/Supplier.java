@@ -47,7 +47,7 @@ public class Supplier extends Identifiable{
 	
 //************************** link to address ***********************************
 	
-	@ListProperties("addressType.type, state, city, zipCode, street")
+	@ListProperties("addressType.type, state, city, zipCode, street1, street2")
 	@OneToMany(mappedBy="supplier", cascade=CascadeType.ALL)	
 	private Collection<Address> address = new ArrayList<Address>();
 	

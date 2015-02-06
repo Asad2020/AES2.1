@@ -119,7 +119,7 @@ public class Quotation extends Identifiable{
 //******************************************* Quotation Detail ********************************************	
 
 
-	@ListProperties("part.name, part.number, price, parent.currency.currency")
+	@ListProperties("part.name, part.number, part.cutSize, part.uom.uom, price, parent.currency.currency")
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL)	
 	private Collection<QuotationDetail> quotationDetail; //= new ArrayList<QuotationDetail>();
 	

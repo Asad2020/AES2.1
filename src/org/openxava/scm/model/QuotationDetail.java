@@ -7,7 +7,7 @@ import org.openxava.annotations.*;
 @Entity
 @Table(name="aes_quotation_details")
 
-@Tab(properties="parent.quotationNumber, parent.supplier.name, part.name, part.number, price, parent.currency.currency")
+@Tab(properties="parent.quotationNumber, parent.supplier.name, part.name, part.number, part.cutSize, part.uom.uom, price, parent.currency.currency")
 
 @View(members=
 "part;" +

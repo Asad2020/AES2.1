@@ -14,34 +14,10 @@ import org.openxava.annotations.*;
 
 @Entity
 @Table(name="aes_contacts")
-@Tab(properties="organization.name, name, position, mobileNumber, phoneNumber, "
+@Tab(properties="supplier.name,customer.name, name, position, mobileNumber, phoneNumber, "
 		+ "faxNumber, email, canCall, canEmail")
 
 public class Contact extends Identifiable{
-	
-//************************************ link to Supplier ********************************	
-
-	@ManyToOne (fetch=FetchType.LAZY)
-	@DescriptionsList(descriptionProperties="name")
-	private Supplier supplier;
-	public Supplier getSupplier() {
-	     return supplier;
-	}
-	public void setSupplier(Supplier supplier) {
-	     this.supplier = supplier;
-	}
-	
-//************************************ link to Customer ********************************	
-
-	@ManyToOne (fetch=FetchType.LAZY)
-	@DescriptionsList(descriptionProperties="name")
-	private Customer customer;
-	public Customer getCustomer() {
-	     return customer;
-	}
-	public void setCustomer(Customer customer) {
-	     this.customer = customer;
-	}
 
 //***************************** Name *********************************************		
 	
@@ -141,6 +117,30 @@ public class Contact extends Identifiable{
 	}
 	public void setCanEmail(Boolean canEmail) {
 	this.canEmail = canEmail;
+	}
+	
+//************************************ link to Supplier ********************************	
+
+	@ManyToOne (fetch=FetchType.LAZY)
+	@DescriptionsList(descriptionProperties="name")
+	private Supplier supplier;
+	public Supplier getSupplier() {
+	     return supplier;
+	}
+	public void setSupplier(Supplier supplier) {
+	     this.supplier = supplier;
+	}
+	
+//************************************ link to Customer ********************************	
+
+	@ManyToOne (fetch=FetchType.LAZY)
+	@DescriptionsList(descriptionProperties="name")
+	private Customer customer;
+	public Customer getCustomer() {
+	     return customer;
+	}
+	public void setCustomer(Customer customer) {
+	     this.customer = customer;
 	}
 	
 }
