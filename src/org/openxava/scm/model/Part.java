@@ -462,6 +462,7 @@ public class Part extends Identifiable{
 	public void setPartTransaction(Collection<PartTransaction> partTransaction) {
 	 this.partTransaction = partTransaction;
 	}	
+	// test
 	
 }
 
