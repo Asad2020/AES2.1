@@ -1,5 +1,6 @@
 package org.openxava.scm.model;
 
+import java.math.*;
 import java.util.*;
 
 import javax.persistence.*;
@@ -11,7 +12,7 @@ import org.openxava.annotations.*;
 @Table(name="aes_supplierorder_details")
 
 //@View(members="")
-@Tab(properties="parent.orderNumber, part.name, part.number, orderQuantity, created, reviewed, approved")
+@Tab(properties="parent.orderNumber, part.name, part.number, orderQuantity, priceCurrency, amountCurrency, created, reviewed, approved")
 
 public class SupplierOrderDetail extends Identifiable{
 
@@ -53,6 +54,39 @@ public class SupplierOrderDetail extends Identifiable{
 	public void setOrderQuantity(float orderQuantity) {
 	this.orderQuantity = orderQuantity;
 	}
+	
+//****************************** calculating price **********************************
+
+	@Depends("part.number")
+	// When the user changes product or quantity
+	public float getPrice() {
+	// this property is recalculated and redisplayed
+		return  (float) part.getQuotationDetail().iterator().next().getPrice();
+	}
+	
+//****************************** calculating price and Currency **********************************
+	
+	@Depends("part.number")
+	// When the user changes product or quantity
+	public String getPriceCurrency() {
+	// this property is recalculated and redisplayed
+		return  part.getQuotationDetail().iterator().next().getParent().getCurrency().getCurrency() + " " + part.getQuotationDetail().iterator().next().getPrice();
+	}
+	
+//******************************** calculating amount ********************************
+	
+	@Depends("orderQuantity, price")
+	public float getAmount(){
+		return orderQuantity * getPrice();
+	}
+	
+	
+//******************************** calculating amount currency********************************
+	
+		@Depends("orderQuantity, price")
+		public String getAmountCurrency(){
+			return part.getQuotationDetail().iterator().next().getParent().getCurrency().getCurrency() + " " + orderQuantity * getPrice();
+		}	
 	
 //********************************** created ***********************************	
 	

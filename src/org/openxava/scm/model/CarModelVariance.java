@@ -66,7 +66,7 @@ public class CarModelVariance extends Identifiable {
 	
 //******************************  link to Part Car model variance ******************************
 	   
-		@ListProperties("part.name, part.number, quantityUsed")
+		@ListProperties("part.name, part.number, part.category.name, quantityUsed")
 		@OneToMany( // To declare this as a persistent collection
 				mappedBy="carModelVariance", // The member of Detail that stores the relationship
 				cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities

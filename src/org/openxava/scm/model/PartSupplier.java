@@ -5,6 +5,8 @@
 
 package org.openxava.scm.model;
 
+import java.util.*;
+
 import javax.persistence.*;
 
 import org.openxava.annotations.*;
@@ -40,4 +42,5 @@ public class PartSupplier extends Identifiable{
 	public void setSupplier(Supplier supplier) {
 	     this.supplier = supplier;
 	}
+		
 }

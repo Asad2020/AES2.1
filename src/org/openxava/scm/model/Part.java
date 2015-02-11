@@ -44,12 +44,12 @@ import org.openxava.annotations.*;
 	" partPerStrip;" +
 	" blankWeight;" +
 	"}" + 
-	//"Car Models {" +
-	//" carModelVariance;" +
-	//"}" + 
 	"Car Models {" +
-	" allCarModel;" +
+	" carModelVariance;" +
 	"}" + 
+	//"Car Models {" +
+	//" allCarModel;" +
+	//"}" + 
 	"Purchasing Information {" +
 	" purchaseType;" +
 	" Suppliers {" +
@@ -67,7 +67,7 @@ import org.openxava.annotations.*;
 	" child;" +
 	"}" )
 
-@Tab( properties="name, number, backNumber, category.name, uom.uom, purchaseType.type, photo")
+@Tab( properties="name, number, backNumber,category.name, uom.uom, purchaseType.type, photo")
 
 public class Part extends Identifiable{	
 	
@@ -368,23 +368,7 @@ public class Part extends Identifiable{
 			result = carModelVariance.iterator().next().getCarModelVariance().getCarModel().getCarModel();
 		}
 		return result;
-	}*/
-	
-//**********************************  link to Quotation Detail **********************************
-	  
-	@ListProperties("parent.supplier.name, parent.quotationNumber, price, parent.currency.currency, parent.validFrom, parent.validUntil")
-	@ReadOnly
-	@OneToMany( // To declare this as a persistent collection
-			mappedBy="part", // The member of Detail that stores the relationship
-			cascade=CascadeType.REMOVE) // Indicates this is a collection of dependent entities
-	private Collection<QuotationDetail> quotationDetail = new ArrayList<QuotationDetail>();
-	
-	public Collection<QuotationDetail> getQuotationDetail() {
-	 return quotationDetail;
-	}
-	public void setQuotationDetail(Collection<QuotationDetail> quotationDetail) {
-	 this.quotationDetail = quotationDetail;
-	}		
+	}*/	
 		
 //*******************************  link to Supplier Order Detail ********************************
 	  
@@ -463,7 +447,22 @@ public class Part extends Identifiable{
 	 this.partTransaction = partTransaction;
 	}	
 	// test
+
+//**********************************  link to Quotation Detail **********************************
+  
+	@ListProperties("parent.supplier.name, parent.quotationNumber, price, parent.currency.currency, parent.validFrom, parent.validUntil")
+	@ReadOnly
+	@OneToMany( // To declare this as a persistent collection
+			mappedBy="part", // The member of Detail that stores the relationship
+			cascade=CascadeType.ALL) // Indicates this is a collection of dependent entities
+	private Collection<QuotationDetail> quotationDetail = new ArrayList<QuotationDetail>();
 	
+	public Collection<QuotationDetail> getQuotationDetail() {
+	 return quotationDetail;
+	}
+	public void setQuotationDetail(Collection<QuotationDetail> quotationDetail) {
+	 this.quotationDetail = quotationDetail;
+	}
 }
 
 

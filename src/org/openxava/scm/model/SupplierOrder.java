@@ -73,17 +73,11 @@ public class SupplierOrder extends Identifiable{
 	private Supplier supplier;			
 	
 	public Supplier getSupplier() {	
-/*		if (supplier != null && supplier.getType().getType().toLowerCase().equals("supplier")){
-				return supplier;
-
-		}*/
 		return supplier;			
 	}
 	
 	public void setSupplier(Supplier supplier) {
-		//if (supplier != null && supplier.getType().getType().toLowerCase().equals("supplier")){
 			this.supplier = supplier;
-		//}
 	}
 
 //******************************************** Payment Term ****************************************
@@ -144,7 +138,7 @@ public class SupplierOrder extends Identifiable{
 
 //******************************************* Supplier Order Detail *******************************	
 	
-	@ListProperties("part.name, part.number, orderQuantity, created, reviewed, approved")
+	@ListProperties("part.name, part.number, orderQuantity,priceCurrency, amountCurrency, created, reviewed, approved")
 	@OneToMany(mappedBy="parent", cascade=CascadeType.ALL)	
 	private Collection<SupplierOrderDetail> supplierOrderDetail = new ArrayList<SupplierOrderDetail>();
 	
